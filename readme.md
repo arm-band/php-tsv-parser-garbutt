@@ -1,5 +1,7 @@
 # Garbutt
 
+[![PHPUnit test](https://github.com/arm-band/php-tsv-parser-garbutt/actions/workflows/test.yml/badge.svg)](https://github.com/arm-band/php-tsv-parser-garbutt/actions/workflows/test.yml)
+
 ## Abstract
 
 tsv (csv) をパースするための簡易的なパッケージ
