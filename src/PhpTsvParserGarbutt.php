@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhpTsvParserGarbutt;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Exception;
@@ -17,6 +15,8 @@ class PhpTsvParserGarbutt
     protected Logger $logger;
 
     protected string $err_msg = 'データファイル読み込みでエラーが発生しました。';
+
+    protected string $dependency_path = __DIR__ . '/../../../';
 
     protected string $filepath;
 
@@ -42,8 +42,16 @@ class PhpTsvParserGarbutt
      */
     public function __construct(string $filepath, int $array_length, string $linefeed = "\n",string $separator = "\t", string $charset_from = 'UTF-8', string $charset_to = 'UTF-8')
     {
+        if( is_file($this->dependency_path . 'composer.json') && is_file($this->dependency_path . 'autoload.php') ) {
+            // composer dependency
+            require_once $this->dependency_path . 'autoload.php';
+        }
+        else {
+            // standalone
+            require_once __DIR__ . '/../vendor/autoload.php';
+        }
         $this->logger = new Logger('PhpTsvParserGarbutt');
-        $this->logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::WARNING));
+        $this->logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::ERROR));
 
         $this->filepath = $filepath;
         $this->array_length = $array_length;
