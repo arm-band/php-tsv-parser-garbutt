@@ -42,7 +42,7 @@ class PhpTsvParserGarbutt
      */
     public function __construct(string $filepath, int $array_length, string $linefeed = "\n",string $separator = "\t", string $charset_from = 'UTF-8', string $charset_to = 'UTF-8')
     {
-        if( is_file($this->dependency_path . 'composer.json') && is_file($this->dependency_path . 'autoload.php') ) {
+        if(is_file($this->dependency_path . 'autoload.php')) {
             // composer dependency
             require_once $this->dependency_path . 'autoload.php';
         }
